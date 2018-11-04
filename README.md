@@ -21,3 +21,10 @@
     }
   }
 ```
+
+## Requirements
+### Supported architectures:
+amd64, arm32v5, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x, windows-amd64
+
+### Supported Docker versions:
+the latest release (down to 1.6 on a best-effort basis)
