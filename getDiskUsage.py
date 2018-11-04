@@ -1,25 +1,26 @@
-import sys, subprocess, os, socketserver
+import sys, subprocess, os, socketserver, json
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
     root_path = os.environ.get('ROOT_PATH') if os.environ.get('ROOT_PATH') else b''
 
     def handle(self):
         data = self.request.recv(1024).split(b'\n')
+        out = {}
+        r_path = self.root_path is type(self.root_path) == bytes else self.root_path.encode()
 
         if data:
             method, path, protocol = data.pop(0).split(b' ')
+            print(method, path, protocol)
             if method == b'GET':
                 if os.path.exists(path):
-                    process_output = subprocess.run(['du', '-x', self.root_path.encode() + path], capture_output=True)
+                    process_output = subprocess.run(['du', '-x', r_path + path], capture_output=True)
                     disk_usage = process_output.stdout.splitlines()
-                    out = {}
+
                     for file in disk_usage:
                         f_bytes, f_name = file.split('\t'.encode())
                         out[f_name.decode('utf-8')] = int(f_bytes)
-                    print(out)
-                    print(method, path, protocol)
         
-        self.request.sendall(str(data).encode())
+        self.request.sendall(b'{ "data": ' + json.dumps(out).encode() + b'}')
 
 if __name__ == '__main__':
 
