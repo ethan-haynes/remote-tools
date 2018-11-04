@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:alpine3.7
 
 LABEL maintainer="Ethan Haynes <ethanhaynes@alumni.harvard.edu>"
 
