@@ -1,12 +1,9 @@
-import sys, subprocess, os
-import socketserver
+import sys, subprocess, os, socketserver
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request.recv(1024).strip().split(b'\n')
-        
-        print("{} wrote:".format(self.client_address[0]))
-        
+         
         if data:
             method, path, protocol = data.pop(0).split(b' ')
             if method == b'GET':
@@ -23,7 +20,14 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         self.request.sendall(str(data).encode())
 
 if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
+
+    HOST = os.environ.get('HOST')
+    if not HOST: 
+        HOST = "localhost"
+
+    PORT = os.environ.get('PORT')
+    if not PORT: 
+        PORT = 99999
 
     with socketserver.TCPServer((HOST, PORT), MyTCPHandler) as server:
         server.serve_forever()
