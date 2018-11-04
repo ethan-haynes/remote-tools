@@ -25,7 +25,7 @@
 ## Production Setup
 ```sh
   $ docker build . -t remote-tools/getdisk
-  $  docker run -d \
+  $ docker run -d \
 --name=remote_tools \
 -p 9999:9999 \
 --read-only=true \
