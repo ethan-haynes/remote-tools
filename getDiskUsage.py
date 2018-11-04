@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     PORT = os.environ.get('PORT')
     if not PORT: 
-        PORT = 99999
+        PORT = 9999
 
     with socketserver.TCPServer((HOST, PORT), MyTCPHandler) as server:
         server.serve_forever()
