@@ -12,7 +12,9 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
             print(method, path, protocol)
             if method == b'GET':
                 if os.path.exists(path):
-                    process_output = subprocess.run(['du', '-x', r_path + path], capture_output=True)
+                    process_output = subprocess.run([
+                        'find', r_path + path, '-type', 'f', '-exec', 'du', '-a', '{}', '+'
+                    ], capture_output=True)
                     disk_usage = process_output.stdout.splitlines()
 
                     for file in disk_usage:
