@@ -11,7 +11,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
             method, path, protocol = data.pop(0).split(b' ')
             print(method, path, protocol)
             if method == b'GET':
-                if os.path.exists(path):
+                if os.path.exists(r_path + path):
                     process_output = subprocess.run([
                         'find', r_path + path, '-type', 'f', '-exec', 'du', '-a', '{}', '+'
                     ], capture_output=True)
