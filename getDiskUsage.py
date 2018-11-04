@@ -6,7 +6,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request.recv(1024).split(b'\n')
         out = {}
-        r_path = self.root_path is type(self.root_path) == bytes else self.root_path.encode()
+        r_path = self.root_path if type(self.root_path) == bytes else self.root_path.encode()
 
         if data:
             method, path, protocol = data.pop(0).split(b' ')
