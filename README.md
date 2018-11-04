@@ -1,10 +1,10 @@
-# HOW TO RUN
+## HOW TO RUN
 ```sh
   $ docker build . -t remote-tools/getdisk 
   $ docker run --rm -d -p 9999:9999 --read-only=true --tmpfs /run --tmpfs /tmp -v "$(pwd)":/app:ro remote-tools/getdisk:latest
 ```
 
-# HOW TO TEST
+## HOW TO TEST
 
 ### Request
 ```sh
@@ -20,6 +20,20 @@
       ...
     }
   }
+```
+
+## Production Setup
+```sh
+  $ docker build . -t remote-tools/getdisk
+  $ docker run -d \ 
+    --name=remote_tool \
+    -p 9999:9999 \
+    --read-only=true \ 
+    --tmpfs /run \
+    --tmpfs /tmp \
+    -e ROOT_PATH=/host \
+    -v /:/host:ro \
+    remote-tools/getdisk:latest
 ```
 
 ## Requirements
