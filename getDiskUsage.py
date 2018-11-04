@@ -4,13 +4,13 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     root_path = os.environ.get('ROOT_PATH') if os.environ.get('ROOT_PATH') else b''
 
     def handle(self):
-        data = self.request.recv(1024).strip().split(b'\n')
-         
+        data = self.request.recv(1024).split(b'\n')
+
         if data:
             method, path, protocol = data.pop(0).split(b' ')
             if method == b'GET':
                 if os.path.exists(path):
-                    process_output = subprocess.run(['du', '-x', self.root_path + path], capture_output=True)
+                    process_output = subprocess.run(['du', '-x', self.root_path.encode() + path], capture_output=True)
                     disk_usage = process_output.stdout.splitlines()
                     out = {}
                     for file in disk_usage:
@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     HOST = os.environ.get('HOST')
     if not HOST: 
-        HOST = 'localhost'
+        HOST = '0.0.0.0'
 
     PORT = os.environ.get('PORT')
     if not PORT: 
