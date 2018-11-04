@@ -25,15 +25,25 @@
 ## Production Setup
 ```sh
   $ docker build . -t remote-tools/getdisk
+<<<<<<< HEAD
   $  docker run -d \
+=======
+  $ docker run -d \
+>>>>>>> d8ce2c1... format fix
 --name=remote_tools \
 -p 9999:9999 \
 --read-only=true \
 --tmpfs /run \
 --tmpfs /tmp \
+<<<<<<< HEAD
 -e ROOT_PATH=/host \
 -v /:/host:ro \
 remote-tools/getdisk:latest
+=======
+-e ROOT_PATH=/Users/ethanhaynes/Projects/eh-portfolio \
+-v /Users/ethanhaynes/Projects/eh-portfolio:/host:ro \
+remote-tools/getdisk:latest  
+>>>>>>> d8ce2c1... format fix
 ```
 
 ## Requirements
