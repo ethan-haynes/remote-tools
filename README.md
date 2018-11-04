@@ -1,3 +1,6 @@
+# Summary
+Remote Tools is a runnable socket server inside a Docker container. It is a toolset used to expose limited information to developers who do not have ssh access to the VM/server it is funning on. It consumes a mount point provided in a GET request uri and returns a json object containing file names and their disk usage in bytes. 
+
 ## HOW TO RUN
 ```sh
   $ docker build . -t remote-tools/getdisk 
